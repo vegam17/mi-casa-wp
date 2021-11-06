@@ -1,0 +1,8 @@
+{
+  "name": "mi-casa",
+  "version": "0.0.1",
+  "main": "src/public/js/index.js",
+  "repository": "https://github.com/vegam17/mi-casa-wp",
+  "author": "Miguel Vega",
+  "private": true
+}
