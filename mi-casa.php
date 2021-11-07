@@ -25,10 +25,21 @@ class MiCasa {
     function initialize() {
         $this->enqueue_assets();
         (new Rest\Manager())->registerRoutes();
+        (new Shortcodes\Manager())->registerShortcodes();
     }
 
     public function enqueue_assets() {
-
+        wp_register_script(
+            'mi-casa', 
+            plugin_dir_url( __FILE__ ) . '/dist/bundle.js', 
+            [], 
+            filemtime( plugin_dir_path( __FILE__ ) . '/dist/bundle.js'),
+            true
+        );
+        wp_localize_script('mi-casa', 'wp', [
+            'rest' => 'http://localhost/personal-finance/wp-json/micasa/v1/'
+        ]);
+        wp_enqueue_script('mi-casa');
     }
 }
 
