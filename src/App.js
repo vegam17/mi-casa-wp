@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { loadTransactions } from './store/transactionSlice'
+import { useDispatch } from 'react-redux'
+import TransactionTable from './components/TransactionTable'
+import TransactionSummary from './components/TransactionSummary'
 
 const App = () => {
-    return <h1>Hello World</h1>
+    const dispatch = useDispatch()
+
+    useEffect(() => dispatch(loadTransactions()), [])
+
+    return (
+        <>
+            <TransactionSummary />
+            <TransactionTable />
+        </>
+    )
 }
 
 export default App

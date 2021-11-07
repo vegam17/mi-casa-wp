@@ -19,7 +19,22 @@ class Transactions extends Route {
     public function getTransactions() {
         $posts = get_posts([
             'post_type' => 'transaction',
+            'posts_per_page' => -1,
+            'order_by' => 'meta_value',
+            'meta_key' => 'date'
         ]);
-        return wp_send_json_success($posts);
+        $output = [];
+        foreach($posts as $post){
+            $output[] = [
+                'id' => $post->ID,
+                'date' => get_field('date', $post->ID),
+                'card' => intval(get_field('card', $post->ID)),
+                'description' => get_field('description', $post->ID),
+                'debit' => floatval(get_field('debit', $post->ID)),
+                'credit' => floatval(get_field('credit', $post->ID)),
+                'account' => get_field('account', $post->ID),
+            ];
+        }
+        wp_send_json_success($output);
     }
 }
